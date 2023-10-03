@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+</head>
+<body>
+    <h1>User Profile</h1>
+
+    <h2>Welcome, {{ user.username }}</h2>
+
+    {% if user.userprofile.avatar %}
+    <div class="avatar">
+        <img src="{{ user.userprofile.avatar.url }}" alt="{{ user.username }} Avatar">
+    </div>
+    {% else %}
+        <!-- Display a placeholder or default avatar if no avatar is available -->
+    {% endif %}
+        <p>User Details:</p>
+    <ul>
+        <li>Name: {{ user.userprofile.first_name }} {{ user.userprofile.last_name }}</li>
+        <li>Email: {{ user.email }}</li>
+        <li>Location: {{ user.userprofile.location }}</li>
+        <li>Occupation: {{ user.userprofile.occupation }}</li>
+        <!-- Add more user profile details as needed -->
+    </ul>
+
+    <h2>Skills:</h2>
+    <ul>
+        {% for skill in user.userprofile.skills.all %}
+            <li>{{ skill.name }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Projects:</h2>
+    <ul>
+        {% for project in user.userprofile.projects.all %}
+            <li>{{ project.title }}</li>
+        {% endfor %}
+    </ul>
+
+    <p><a href="{% url 'logout' %}">Logout</a></p>
+    <p><a href="{% url 'profile_update' %}">Update Profile</a></p>
+</body>
+</html>
